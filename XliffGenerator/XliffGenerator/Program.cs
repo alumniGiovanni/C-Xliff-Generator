@@ -9,6 +9,9 @@ namespace TranslatorConsole
     {
         static void Main(string[] args)
         {
+            TranslUnit values1 = new TranslUnit("Constructing", "En construction");
+            var type = values1.GetType();
+            var properties = type.GetProperties();
 
             XmlDocument doc = new XmlDocument();
             XmlNode docNode = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -83,7 +86,12 @@ namespace TranslatorConsole
 
             doc.Save(@"C:\Users\giova\Desktop\filetest.fr.xlf");
 
-        
+            foreach (var property in properties)
+            {
+                //Tratamento do dado
+                sourceNode.InnerText = property.GetValue(values1, null).ToString();
+                Console.WriteLine(sourceNode.InnerText);
+            }
         }
     }
 }
